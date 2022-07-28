@@ -137,12 +137,17 @@ else()
   set(default_auxiliary_install_dir share/${PROJECT_NAME})
 endif()
 
+us_cache_var(AUXILIARY_INSTALL_DIR_IS_CUSTOM FALSE STRING "Set if the AUXILIARY_INSTALL_DIR is a custom directory path" ADVANCED)
 us_cache_var(RUNTIME_INSTALL_DIR ${default_runtime_install_dir} STRING "Relative install location for binaries" ADVANCED)
 us_cache_var(LIBRARY_INSTALL_DIR ${default_library_install_dir} STRING "Relative install location for libraries" ADVANCED)
 us_cache_var(ARCHIVE_INSTALL_DIR ${default_archive_install_dir} STRING "Relative install location for archives" ADVANCED)
 us_cache_var(HEADER_INSTALL_DIR ${default_header_install_dir} STRING "Relative install location for headers" ADVANCED)
 us_cache_var(AUXILIARY_INSTALL_DIR ${default_auxiliary_install_dir} STRING "Relative install location for auxiliary files" ADVANCED)
-set(AUXILIARY_CMAKE_INSTALL_DIR ${AUXILIARY_INSTALL_DIR}/cmake)
+if(NOT AUXILIARY_INSTALL_DIR_IS_CUSTOM)
+  set(AUXILIARY_CMAKE_INSTALL_DIR ${AUXILIARY_INSTALL_DIR}/cmake)
+else()
+  set(AUXILIARY_CMAKE_INSTALL_DIR ${AUXILIARY_INSTALL_DIR})
+endif()
 
 us_cache_var(US_NAMESPACE "us" STRING "The namespace for the C++ Micro Services symbols")
 
